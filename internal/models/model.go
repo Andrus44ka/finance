@@ -5,7 +5,7 @@ import "time"
 type Account struct {
 	ID      int     `json:"id"`
 	Name    string  `json:"name"`
-	Balance float64 `json:"balance"` // в коде float64, но в БД DECIMAL
+	Balance float64 `json:"balance"`
 }
 
 type Transaction struct {
@@ -13,8 +13,8 @@ type Transaction struct {
 	Date          time.Time `json:"date"`
 	Amount        float64   `json:"amount"`
 	Description   string    `json:"description"`
-	FromAccountID *int      `json:"from_account_id,omitempty"` // может быть nil
-	ToAccountID   *int      `json:"to_account_id,omitempty"`   // может быть nil
+	FromAccountID *int      `json:"from_account_id,omitempty"`
+	ToAccountID   *int      `json:"to_account_id,omitempty"`
 }
 
 type CreateAccountRequest struct {
