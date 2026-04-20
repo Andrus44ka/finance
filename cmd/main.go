@@ -36,6 +36,7 @@ func main() {
 	h := handlers.NewHandler(db)
 	mux := http.NewServeMux()
 
+	// API endpoints
 	mux.HandleFunc("GET /api/accounts", h.GetAccounts)
 	mux.HandleFunc("GET /api/accounts/{id}", h.GetAccount)
 	mux.HandleFunc("POST /api/accounts", h.CreateAccount)
@@ -44,6 +45,10 @@ func main() {
 	mux.HandleFunc("POST /api/transactions/expense", h.Expense)
 	mux.HandleFunc("POST /api/transactions/transfer", h.Transfer)
 	mux.HandleFunc("GET /api/transactions", h.GetTransactions)
+
+	// Web endpoints
+	mux.HandleFunc("GET /", handlers.WebHandler)
+	mux.HandleFunc("GET /static/", handlers.StaticHandler)
 
 	go func() {
 		log.Println("HTTP server starting on :8080")
@@ -57,6 +62,7 @@ func main() {
 
 	bot, err := telegram.NewFinanceBot(botToken, apiURL)
 	if err != nil {
+		log.Println("!!")
 		log.Fatal(err)
 	}
 

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовый трекер</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Финансовый трекер</h1>
+        
+        <!-- Блок со счетами -->
+        <div class="section">
+            <h2>🏦 Мои счета</h2>
+            <div id="accounts-list" class="accounts-grid">
+                <div class="loading">Загрузка...</div>
+            </div>
+            <div class="form-row">
+                <input type="text" id="new-account-name" placeholder="Название счета" class="input-small">
+                <input type="number" id="new-account-balance" placeholder="Начальный баланс" class="input-small">
+                <button onclick="createAccount()" class="btn btn-primary">➕ Создать счет</button>
+            </div>
+        </div>
+        
+        <!-- Блок операций -->
+        <div class="section">
+            <h2>📝 Операции</h2>
+            
+            <!-- Вкладки -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('income')">💰 Доход</button>
+                <button class="tab-btn" onclick="showTab('expense')">💸 Расход</button>
+                <button class="tab-btn" onclick="showTab('transfer')">🔄 Перевод</button>
+            </div>
+            
+            <!-- Форма дохода -->
+            <div id="income-tab" class="tab-content active">
+                <div class="form-card">
+                    <h3>Добавить доход</h3>
+                    <div class="form-group">
+                        <label>Счет:</label>
+                        <select id="income-account"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма:</label>
+                        <input type="number" id="income-amount" placeholder="Например: 5000">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание:</label>
+                        <input type="text" id="income-desc" placeholder="Зарплата, подарок...">
+                    </div>
+                    <button onclick="addIncome()" class="btn btn-success">➕ Добавить доход</button>
+                </div>
+            </div>
+            
+            <!-- Форма расхода -->
+            <div id="expense-tab" class="tab-content">
+                <div class="form-card">
+                    <h3>Добавить расход</h3>
+                    <div class="form-group">
+                        <label>Счет:</label>
+                        <select id="expense-account"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма:</label>
+                        <input type="number" id="expense-amount" placeholder="Например: 350">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание:</label>
+                        <input type="text" id="expense-desc" placeholder="Продукты, кофе...">
+                    </div>
+                    <button onclick="addExpense()" class="btn btn-danger">➖ Добавить расход</button>
+                </div>
+            </div>
+            
+            <!-- Форма перевода -->
+            <div id="transfer-tab" class="tab-content">
+                <div class="form-card">
+                    <h3>Перевод между счетами</h3>
+                    <div class="form-group">
+                        <label>Откуда:</label>
+                        <select id="transfer-from"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Куда:</label>
+                        <select id="transfer-to"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма:</label>
+                        <input type="number" id="transfer-amount" placeholder="Например: 1000">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание:</label>
+                        <input type="text" id="transfer-desc" placeholder="На карту...">
+                    </div>
+                    <button onclick="addTransfer()" class="btn btn-primary">🔄 Выполнить перевод</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Блок истории -->
+        <div class="section">
+            <h2>📜 История операций</h2>
+            <div class="history-controls">
+                <select id="history-account">
+                    <option value="">Все счета</option>
+                </select>
+                <button onclick="loadHistory()" class="btn btn-secondary">Обновить</button>
+            </div>
+            <div id="history-list" class="history-list">
+                <div class="loading">Загрузка...</div>
+            </div>
+        </div>
+        
+        <!-- Сообщения об ошибках -->
+        <div id="message" class="message"></div>
+    </div>
+    
+    <script src="/static/script.js"></script>
+</body>
+</html>
