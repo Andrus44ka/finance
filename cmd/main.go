@@ -5,18 +5,13 @@ import (
 	"log"
 	"net/http"
 	"os"
-
-	_ "github.com/lib/pq"
-
-	"myfinance/internal/handlers"
+	"os/signal"
+	"syscall"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 
-	"os/signal"
-	"syscall"
-
-	_ "github.com/lib/pq"
+	"myfinance/internal/handlers"
 )
 
 func main() {
@@ -51,24 +46,10 @@ func main() {
 
 	go func() {
 		log.Println("HTTP server starting on :8080")
-		if err := http.ListenAndServe("0.0.0.0:8080", mux); err != nil {
+		if err := http.ListenAndServe(":8080", mux); err != nil {
 			log.Fatal(err)
 		}
 	}()
-
-	// botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
-	// apiURL := os.Getenv("API_URL")
-
-	// bot, err := telegram.NewFinanceBot(botToken, apiURL)
-	// if err != nil {
-	// 	log.Println("!!")
-	// 	log.Fatal(err)
-	// }
-
-	// go func() {
-	// 	log.Println("Starting Telegram bot...")
-	// 	bot.Start()
-	// }()
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
