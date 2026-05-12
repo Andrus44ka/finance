@@ -9,7 +9,6 @@ import (
 	_ "github.com/lib/pq"
 
 	"myfinance/internal/handlers"
-	"myfinance/internal/telegram"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -57,19 +56,19 @@ func main() {
 		}
 	}()
 
-	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
-	apiURL := os.Getenv("API_URL")
+	// botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
+	// apiURL := os.Getenv("API_URL")
 
-	bot, err := telegram.NewFinanceBot(botToken, apiURL)
-	if err != nil {
-		log.Println("!!")
-		log.Fatal(err)
-	}
+	// bot, err := telegram.NewFinanceBot(botToken, apiURL)
+	// if err != nil {
+	// 	log.Println("!!")
+	// 	log.Fatal(err)
+	// }
 
-	go func() {
-		log.Println("Starting Telegram bot...")
-		bot.Start()
-	}()
+	// go func() {
+	// 	log.Println("Starting Telegram bot...")
+	// 	bot.Start()
+	// }()
 
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
