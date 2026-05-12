@@ -1,0 +1,5 @@
+meta:
+  environment: dockerfile
+
+run:
+  containerPort: 8080

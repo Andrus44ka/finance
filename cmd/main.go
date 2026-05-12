@@ -51,7 +51,7 @@ func main() {
 
 	go func() {
 		log.Println("HTTP server starting on :8080")
-		if err := http.ListenAndServe(":8080", mux); err != nil {
+		if err := http.ListenAndServe("0.0.0.0:8080", mux); err != nil {
 			log.Fatal(err)
 		}
 	}()
