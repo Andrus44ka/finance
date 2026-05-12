@@ -45,8 +45,8 @@ func main() {
 	mux.HandleFunc("GET /static/", handlers.StaticHandler)
 
 	go func() {
-		log.Println("HTTP server starting on :8080")
-		if err := http.ListenAndServe(":8080", mux); err != nil {
+		log.Println("HTTP server starting on :80")
+		if err := http.ListenAndServe(":80", mux); err != nil {
 			log.Fatal(err)
 		}
 	}()

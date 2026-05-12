@@ -24,6 +24,6 @@ COPY --from=builder /app/server .
 # Копируем веб-файлы (HTML, CSS, JS)
 COPY --from=builder /app/web ./web
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["./server"]
