@@ -1,5 +1,7 @@
 meta:
   environment: dockerfile
+  toolchain:
+    name: dockerfile
 
 run:
   containerPort: 8080
