@@ -1,0 +1,5 @@
+.env
+server
+vendor/
+.DS_Store # служебные файлы macos
+ 
