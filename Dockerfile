@@ -6,6 +6,7 @@ WORKDIR /app
 # Копируем зависимости и загружаем модули (кэшируется отдельным слоем)
 COPY go.mod go.sum ./
 RUN go mod download
+RUN go install github.com/pressly/goose/v3/cmd/goose@latest
 
 # Копируем весь исходный код
 COPY . .
@@ -21,9 +22,15 @@ WORKDIR /app
 # Копируем бинарник из этапа сборки
 COPY --from=builder /app/server .
 
+# Копируем миграции
+COPY --from=builder /app/migrations ./migrations
+
+COPY --from=builder /go/bin/goose /usr/local/bin/goose
+
+
 # Копируем веб-файлы (HTML, CSS, JS)
 COPY --from=builder /app/web ./web
 
 EXPOSE 80
 
-CMD ["./server"]
+CMD ["sh", "start.sh"]

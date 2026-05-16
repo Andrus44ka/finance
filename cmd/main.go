@@ -23,11 +23,6 @@ func main() {
 	}
 	defer db.Close()
 
-	// Создаём таблицы если их нет
-	if err := initDB(db); err != nil {
-		log.Fatal("Failed to init DB:", err)
-	}
-
 	h := handlers.NewHandler(db)
 	mux := http.NewServeMux()
 
@@ -57,25 +52,4 @@ func main() {
 	<-quit
 
 	log.Println("Shutting down...")
-}
-
-func initDB(db *sql.DB) error {
-	query := `
-	CREATE TABLE IF NOT EXISTS accounts (
-		id      SERIAL PRIMARY KEY,
-		name    VARCHAR(100)   NOT NULL,
-		balance DECIMAL(15, 2) NOT NULL DEFAULT 0
-	);
-
-	CREATE TABLE IF NOT EXISTS transactions (
-		id              SERIAL PRIMARY KEY,
-		date            DATE           NOT NULL,
-		amount          DECIMAL(15, 2) NOT NULL,
-		description     TEXT,
-		from_account_id INT REFERENCES accounts(id),
-		to_account_id   INT REFERENCES accounts(id)
-	);`
-
-	_, err := db.Exec(query)
-	return err
 }
